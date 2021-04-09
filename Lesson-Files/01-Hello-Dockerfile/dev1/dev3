@@ -1,0 +1,25 @@
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+eba65633fb22        43 seconds ago      /bin/sh -c #(nop)  CMD ["app.py" "--host" "0…   0B                  
+34e45569e040        44 seconds ago      /bin/sh -c #(nop)  ENTRYPOINT ["python"]        0B                  
+bf4eda7483bf        44 seconds ago      /bin/sh -c #(nop)  EXPOSE 5000                  0B                  
+b16273066a56        44 seconds ago      /bin/sh -c pip install -r requirements.txt      11.1MB              
+1aab77ae1969        51 seconds ago      /bin/sh -c #(nop) WORKDIR /app                  0B                  
+838417e5c99a        51 seconds ago      /bin/sh -c #(nop) COPY dir:2f76f2b892c9fa5dc…   397B                
+d6f5dddc84ee        4 days ago          /bin/sh -c #(nop)  CMD ["python3"]              0B                  
+<missing>           4 days ago          /bin/sh -c set -ex;   wget -O get-pip.py "$P…   8.01MB              
+<missing>           4 days ago          /bin/sh -c #(nop)  ENV PYTHON_GET_PIP_SHA256…   0B                  
+<missing>           4 days ago          /bin/sh -c #(nop)  ENV PYTHON_GET_PIP_URL=ht…   0B                  
+<missing>           4 days ago          /bin/sh -c #(nop)  ENV PYTHON_PIP_VERSION=21…   0B                  
+<missing>           4 days ago          /bin/sh -c cd /usr/local/bin  && ln -s idle3…   32B                 
+<missing>           4 days ago          /bin/sh -c set -ex   && wget -O python.tar.x…   55.8MB              
+<missing>           4 days ago          /bin/sh -c #(nop)  ENV PYTHON_VERSION=3.9.4     0B                  
+<missing>           9 days ago          /bin/sh -c #(nop)  ENV GPG_KEY=E3FF2839C048B…   0B                  
+<missing>           9 days ago          /bin/sh -c apt-get update && apt-get install…   18MB                
+<missing>           9 days ago          /bin/sh -c #(nop)  ENV LANG=C.UTF-8             0B                  
+<missing>           9 days ago          /bin/sh -c #(nop)  ENV PATH=/usr/local/bin:/…   0B                  
+<missing>           9 days ago          /bin/sh -c set -ex;  apt-get update;  apt-ge…   510MB               
+<missing>           9 days ago          /bin/sh -c apt-get update && apt-get install…   146MB               
+<missing>           9 days ago          /bin/sh -c set -ex;  if ! command -v gpg > /…   17.5MB              
+<missing>           9 days ago          /bin/sh -c set -eux;  apt-get update;  apt-g…   16.5MB              
+<missing>           9 days ago          /bin/sh -c #(nop)  CMD ["bash"]                 0B                  
+<missing>           9 days ago          /bin/sh -c #(nop) ADD file:c254898ceb4172f05…   114MB               
