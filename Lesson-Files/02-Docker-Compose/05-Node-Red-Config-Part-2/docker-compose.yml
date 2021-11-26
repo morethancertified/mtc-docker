@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  api:
+    build: ./dev1/
+    ports:
+      - "5000:5000"
+    volumes:
+      - type: volume
+        source: dev1-vol
+        target: /app
+  nodered:
+    build: 
+      context: ./node-red/
+    environment:
+      - API_URL=api:5000
+    ports:
+      - "1880:1880"
+    volumes:
+      - nodered-vol:/data
+volumes:
+  dev1-vol: {}
+  nodered-vol: {}

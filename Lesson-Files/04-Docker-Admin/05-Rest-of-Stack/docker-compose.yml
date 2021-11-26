@@ -1,0 +1,105 @@
+version: "3.9"
+services:
+  api:
+    container_name: dev1
+    image: registry.gitlab.com/mtc-infra/dev1:latest
+    networks:
+      - backend
+    volumes:
+      - type: volume
+        source: dev1-vol
+        target: /app
+  nodered:
+    container_name: nodered
+    build: ./nodered/
+    networks:
+      - backend
+    ports:
+      - "1880:1880"
+    volumes:
+      - type: volume
+        source: nodered-vol
+        target: /data
+    environment:
+      - INFLUXDB_TOKEN=mtcderektoken
+  influxdb:
+    container_name: influxdb
+    image: registry.gitlab.com/mtc-infra/influxdb:latest
+    networks:
+      - backend
+    volumes:
+      - type: volume
+        source: influxdb-vol
+        target: /var/lib/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=mtcderek
+      - DOCKER_INFLUXDB_INIT_PASSWORD=mtcderek
+      - DOCKER_INFLUXDB_INIT_ORG=mtc
+      - DOCKER_INFLUXDB_INIT_BUCKET=mtcbucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=mtcderektoken
+  grafana:
+    container_name: grafana
+    image: registry.gitlab.com/mtc-infra/grafana:latest
+    environment:
+      - GF_SECURITY_ADMIN_USER=mtcderek
+      - GF_SECURITY_ADMIN_PASSWORD=mtcderek
+      - INFLUXDB_TOKEN=mtcderektoken
+    networks:
+      - frontend
+      - backend
+      - db
+    ports:
+      - "3000:3000"
+    volumes:
+      - type: volume
+        source: grafana-vol
+        target: /var/lib/grafana
+  postgres:
+    container_name: postgres
+    image: registry.gitlab.com/mtc-infra/postgres:latest
+    networks:
+      - db
+    volumes:
+      - type: volume
+        source: postgres-vol
+        target: /var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=mtcderek
+      - POSTGRES_PASSWORD=mtcderek
+      - POSTGRES_DB=mtcdb
+  postgrest:
+    container_name: postgrest
+    image: postgrest/postgrest
+    networks:
+      - backend
+      - db
+    environment:
+      - PGRST_DB_URI=postgres://mtcderek:mtcderek@postgres:5432/mtcdb
+      - PGRST_DB_ANON_ROLE=mtcderek
+  wireguard:
+    image: ghcr.io/linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+      - PEERS=3
+    volumes:
+      - /home/ubuntu/environment/mtc-docker/Public/Lesson-Files/04-Docker-Admin/05-Rest-of-Stack/wireguard/config:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - 51820:51820/udp
+volumes:
+  dev1-vol: {}
+  nodered-vol: {}
+  influxdb-vol: {}
+  grafana-vol: {}
+  postgres-vol: {}
+networks:
+  frontend: {}
+  backend: {}
+  db: {}

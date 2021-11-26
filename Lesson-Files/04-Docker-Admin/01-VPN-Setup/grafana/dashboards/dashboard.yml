@@ -1,0 +1,10 @@
+apiVersion: 1
+providers:
+- name: 'Temperature'
+  orgId: 1
+  folder: 'new dashboards'
+  type: file
+  disableDeletion: false
+  allowUiUpdates: false
+  options:
+    path: /etc/grafana/provisioning/dashboards
